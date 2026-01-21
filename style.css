@@ -158,7 +158,7 @@ body {
   font-size: 2.5rem;
   color: var(--accent-color);
   animation: pulse 1.5s infinite;
-  margin-top: -35px;
+  margin-top: -350px;
 }
 
 @keyframes pulse {
@@ -1126,4 +1126,5 @@ body.bg-snow {
   height: 6px;
   right: 8px;
   bottom: 65px;
+
 }

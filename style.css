@@ -383,6 +383,68 @@ input:checked + .slider:before {
   color: white;
 }
 
+/* === Модалка пасхалок === */
+.easter-egg-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInEgg 0.3s ease;
+}
+
+.easter-egg-modal.visible {
+  display: flex;
+}
+
+@keyframes fadeInEgg {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+#easter-egg-image {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  animation: scaleInEgg 0.3s ease;
+}
+
+@keyframes scaleInEgg {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* === Кнопка закрытия пасхалки === */
+.easter-egg-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.2s;
+  z-index: 2002;
+}
+
+.easter-egg-close:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(1.1);
+}
+
+.easter-egg-close:active {
+  transform: scale(0.95);
+}
+
 /* === ФОНОВЫЕ ЦВЕТА === */
 body.bg-fireflies {
   background-color: #0a0a1a !important;

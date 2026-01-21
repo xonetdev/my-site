@@ -13,73 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // === Кроппер аватаров ===
-  let cropper = null;
-  const file1 = document.getElementById('file1');
-  const file2 = document.getElementById('file2');
+  // === Аватары (только отображение) ===
   const avatar1 = document.getElementById('avatar1');
   const avatar2 = document.getElementById('avatar2');
-
-  function openCropper(file, targetId) {
-    const modal = document.getElementById('avatar-modal');
-    const preview = document.getElementById('image-preview');
-    
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      preview.innerHTML = `<img id="crop-img" src="${e.target.result}">`;
-      const img = document.getElementById('crop-img');
-      
-      if (cropper) cropper.destroy();
-      cropper = new Cropper(img, {
-        aspectRatio: 1,
-        viewMode: 1,
-        cropBoxResizable: true,
-      });
-      
-      modal.style.display = 'flex';
-      
-      document.getElementById('save-avatar').onclick = () => {
-        const canvas = cropper.getCroppedCanvas({ width: 120, height: 120 });
-        const dataUrl = canvas.toDataURL('image/png');
-        document.getElementById(targetId).src = dataUrl;
-        localStorage.setItem(targetId, dataUrl);
-        modal.style.display = 'none';
-      };
-      
-      document.getElementById('cancel-avatar').onclick = () => {
-        modal.style.display = 'none';
-      };
-    };
-    reader.readAsDataURL(file);
-  }
-
-  avatar1.addEventListener('click', () => file1.click());
-  avatar2.addEventListener('click', () => file2.click());
-  
-  file1.onchange = (e) => { if (e.target.files[0]) openCropper(e.target.files[0], 'avatar1'); };
-  file2.onchange = (e) => { if (e.target.files[0]) openCropper(e.target.files[0], 'avatar2'); };
 
   if (localStorage.getItem('avatar1')) avatar1.src = localStorage.getItem('avatar1');
   if (localStorage.getItem('avatar2')) avatar2.src = localStorage.getItem('avatar2');
 
-  // === Имена ===
-  const name1 = document.getElementById('name1');
-  const name2 = document.getElementById('name2');
-  const saveNames = () => {
-    localStorage.setItem('name1', name1.innerText);
-    localStorage.setItem('name2', name2.innerText);
-  };
-  name1.addEventListener('input', saveNames);
-  name2.addEventListener('input', saveNames);
-  if (localStorage.getItem('name1')) name1.innerText = localStorage.getItem('name1');
-  if (localStorage.getItem('name2')) name2.innerText = localStorage.getItem('name2');
-
-  // === Дата начала отношений ===
-  const startDateInput = document.getElementById('start-date-input');
-  const settingsResult = document.getElementById('settings-result');
+  // === Дата начала отношений (фиксированная) ===
   const homeResult = document.getElementById('result');
-  const today = new Date().toISOString().split('T')[0];
-  startDateInput.max = today;
+  const startDate = new Date(2025, 10, 26); // 26 ноября 2025 (месяцы от 0)
 
   const getDayForm = (n) => {
     n = Math.abs(n) % 100;
@@ -91,28 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const updateResult = () => {
-    const startStr = startDateInput.value;
-    if (!startStr) {
-      homeResult.textContent = settingsResult.textContent = '—';
-      return;
-    }
-    const start = new Date(startStr);
     const now = new Date();
-    const diffDays = Math.ceil(Math.abs(now - start) / (1000 * 60 * 60 * 24));
+    const diffDays = Math.ceil(Math.abs(now - startDate) / (1000 * 60 * 60 * 24));
     const text = `Прошло ${diffDays} ${getDayForm(diffDays)}`;
     homeResult.textContent = text;
-    settingsResult.textContent = text;
   };
 
-  startDateInput.addEventListener('change', () => {
-    localStorage.setItem('startDate', startDateInput.value);
-    updateResult();
-  });
-
-  const savedDate = localStorage.getItem('startDate');
-  if (savedDate) {
-    startDateInput.value = savedDate;
-  }
   updateResult();
 
   // === Эффекты фона ===
@@ -242,5 +169,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('input[name="bg-effect"]').forEach(radio => {
     radio.addEventListener('change', (e) => applyBackgroundEffect(e.target.value));
+  });
+
+  // === Пасхалки (скрытый счетчик) ===
+  let clickCount = 0;
+  const madeByElement = document.getElementById('made-by');
+  const easterEggModal = document.getElementById('easter-egg-modal');
+  const easterEggImage = document.getElementById('easter-egg-image');
+  
+  const easterEggs = {
+    30: 'assets/pashalko.jpg',
+    42: 'assets/pashalko1.jpg',
+    52: 'assets/pashalko2.jpg',
+    66: 'assets/secret.jpg'
+  };
+
+  let hideTimeout = null;
+
+  const hideEasterEgg = () => {
+    easterEggModal.classList.remove('visible');
+    if (hideTimeout) clearTimeout(hideTimeout);
+  };
+
+  const showEasterEgg = (imageSrc) => {
+    easterEggImage.src = imageSrc;
+    easterEggModal.classList.add('visible');
+    
+    // Для secret.jpg добавляем крестик для закрытия
+    if (imageSrc === 'assets/secret.jpg') {
+      const closeBtn = document.createElement('button');
+      closeBtn.className = 'easter-egg-close';
+      closeBtn.innerHTML = '✕';
+      closeBtn.addEventListener('click', () => {
+        hideEasterEgg();
+      });
+      easterEggModal.appendChild(closeBtn);
+    } else {
+      // Для остальных картинок - автозакрытие через 5 секунд
+      if (hideTimeout) clearTimeout(hideTimeout);
+      hideTimeout = setTimeout(() => {
+        hideEasterEgg();
+      }, 5000);
+    }
+  };
+
+  madeByElement.addEventListener('click', () => {
+    clickCount++;
+    if (easterEggs[clickCount]) {
+      showEasterEgg(easterEggs[clickCount]);
+    }
   });
 });

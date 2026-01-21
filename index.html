@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Вместе</title>
+  <title>ekhosmerti</title>
+  <link rel="icon" href="assets/page.jpg" type="image/jpeg">
   <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -14,14 +15,6 @@
     <button class="nav-btn active" data-page="home">
       <img src="assets/home-icon.png" alt="Главная">
     </button>
-    <button class="nav-btn" data-page="relations">
-      <img src="assets/heart-icon.png" alt="Отношения">
-    </button>
-    <button class="nav-btn" data-page="gifts">
-      <img src="assets/gift-icon.png" alt="Подарки">
-    </button>
-    <button class="nav-btn" data-page="stats">
-      <img src="assets/stats-icon.png" alt="Статистика">
     </button>
     <button class="nav-btn" data-page="settings">
       <img src="assets/settings-icon.png" alt="Настройки">
@@ -37,33 +30,15 @@
       </div>
       <div class="avatars-container">
         <div class="avatar-wrapper">
-          <img id="avatar1" class="avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' fill='%23222'/%3E%3Ctext x='60' y='65' font-family='sans-serif' font-size='14' fill='%23666' text-anchor='middle'%3EТы%3C/text%3E%3C/svg%3E" alt="Ты">
-          <div id="name1" class="name-tag" contenteditable="true">Ты</div>
+          <img id="avatar1" class="avatar" src="assets/pfp1.jpg" alt="Ты">
+          <div id="name1" class="name-tag">fa ватафа</div>
         </div>
         <div class="heart">❤️</div>
         <div class="avatar-wrapper">
-          <img id="avatar2" class="avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' fill='%23222'/%3E%3Ctext x='60' y='65' font-family='sans-serif' font-size='14' fill='%23666' text-anchor='middle'%3EОна%3C/text%3E%3C/svg%3E" alt="Она">
-          <div id="name2" class="name-tag" contenteditable="true">Она</div>
+          <img id="avatar2" class="avatar" src="assets/pfp2.jpg" alt="Она">
+          <div id="name2" class="name-tag">коко шнейне</div>
         </div>
       </div>
-    </section>
-
-    <!-- Отношения -->
-    <section id="page-relations" class="page">
-      <div class="page-header"><h2>Отношения</h2></div>
-      <p>История, заметки и дни вместе.</p>
-    </section>
-
-    <!-- Подарки -->
-    <section id="page-gifts" class="page">
-      <div class="page-header"><h2>Подарки</h2></div>
-      <p>Список желаний и планы.</p>
-    </section>
-
-    <!-- Статистика -->
-    <section id="page-stats" class="page">
-      <div class="page-header"><h2>Статистика</h2></div>
-      <p>Графики и совместное время.</p>
     </section>
 
     <!-- Настройки -->
@@ -74,15 +49,6 @@
       </div>
 
       <div class="settings-container">
-        <!-- Дата начала -->
-        <div class="setting-card">
-          <h3>📅 Дата начала отношений</h3>
-          <div class="control-group">
-            <input type="date" id="start-date-input" max="">
-            <div class="result-preview" id="settings-result">—</div>
-          </div>
-        </div>
-
         <!-- Эффекты фона -->
         <div class="setting-card">
           <h3>🌌 Эффекты фона</h3>
@@ -124,6 +90,14 @@
           <div class="control-group color-picker-group">
             <input type="color" id="accent-color-picker" value="#ff4d94">
             <span class="color-preview" id="color-preview"></span>
+          </div>
+        </div>
+
+        <!-- Контактные данные -->
+        <div class="setting-card">
+          <div style="text-align: center; padding: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+            <p id="made-by" style="cursor: pointer; color: #aaa; font-size: 0.9rem; margin-bottom: 0.5rem; user-select: none;">made by xonet</p>
+            <p style="color: #888; font-size: 0.85rem; margin: 0;">t.me/ekhosmerti</p>
           </div>
         </div>
       </div>
@@ -229,6 +203,11 @@
       <button id="save-avatar">Сохранить</button>
       <button id="cancel-avatar">Отмена</button>
     </div>
+  </div>
+
+  <!-- Модалка пасхалок -->
+  <div id="easter-egg-modal" class="easter-egg-modal">
+    <img id="easter-egg-image" src="" alt="пасхалка">
   </div>
 
   <input type="file" id="file1" accept="image/*" style="display:none">

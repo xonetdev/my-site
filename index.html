@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Вместе</title>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Hotbar -->
+  <nav id="hotbar">
+    <button class="nav-btn active" data-page="home">
+      <img src="assets/home-icon.png" alt="Главная">
+    </button>
+    <button class="nav-btn" data-page="relations">
+      <img src="assets/heart-icon.png" alt="Отношения">
+    </button>
+    <button class="nav-btn" data-page="gifts">
+      <img src="assets/gift-icon.png" alt="Подарки">
+    </button>
+    <button class="nav-btn" data-page="stats">
+      <img src="assets/stats-icon.png" alt="Статистика">
+    </button>
+    <button class="nav-btn" data-page="settings">
+      <img src="assets/settings-icon.png" alt="Настройки">
+    </button>
+  </nav>
+
+  <!-- Основной контент -->
+  <main id="content">
+    <!-- Главная -->
+    <section id="page-home" class="page active">
+      <div class="page-header">
+        <div class="result" id="result">—</div>
+      </div>
+      <div class="avatars-container">
+        <div class="avatar-wrapper">
+          <img id="avatar1" class="avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' fill='%23222'/%3E%3Ctext x='60' y='65' font-family='sans-serif' font-size='14' fill='%23666' text-anchor='middle'%3EТы%3C/text%3E%3C/svg%3E" alt="Ты">
+          <div id="name1" class="name-tag" contenteditable="true">Ты</div>
+        </div>
+        <div class="heart">❤️</div>
+        <div class="avatar-wrapper">
+          <img id="avatar2" class="avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' fill='%23222'/%3E%3Ctext x='60' y='65' font-family='sans-serif' font-size='14' fill='%23666' text-anchor='middle'%3EОна%3C/text%3E%3C/svg%3E" alt="Она">
+          <div id="name2" class="name-tag" contenteditable="true">Она</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Отношения -->
+    <section id="page-relations" class="page">
+      <div class="page-header"><h2>Отношения</h2></div>
+      <p>История, заметки и дни вместе.</p>
+    </section>
+
+    <!-- Подарки -->
+    <section id="page-gifts" class="page">
+      <div class="page-header"><h2>Подарки</h2></div>
+      <p>Список желаний и планы.</p>
+    </section>
+
+    <!-- Статистика -->
+    <section id="page-stats" class="page">
+      <div class="page-header"><h2>Статистика</h2></div>
+      <p>Графики и совместное время.</p>
+    </section>
+
+    <!-- Настройки -->
+    <section id="page-settings" class="page">
+      <div class="page-header">
+        <h2>Настройки</h2>
+        <p class="page-subtitle">Настрой внешний вид и личные данные</p>
+      </div>
+
+      <div class="settings-container">
+        <!-- Дата начала -->
+        <div class="setting-card">
+          <h3>📅 Дата начала отношений</h3>
+          <div class="control-group">
+            <input type="date" id="start-date-input" max="">
+            <div class="result-preview" id="settings-result">—</div>
+          </div>
+        </div>
+
+        <!-- Эффекты фона -->
+        <div class="setting-card">
+          <h3>🌌 Эффекты фона</h3>
+          <div class="control-group">
+            <label class="radio-option">
+              <input type="radio" name="bg-effect" value="none">
+              <span>Нет</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="bg-effect" value="fireflies">
+              <span>Светлячки</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="bg-effect" value="stars">
+              <span>Падающие звёзды</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="bg-effect" value="snow">
+              <span>Снегопад</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Новогодний режим -->
+        <div class="setting-card">
+          <h3>🎄 Сезонные элементы</h3>
+          <div class="control-group" style="flex-direction: row; align-items: center; gap: 12px;">
+            <label class="switch">
+              <input type="checkbox" id="winter-scene-toggle">
+              <span class="slider"></span>
+            </label>
+            <span class="switch-label">Новогодний шарик</span>
+          </div>
+        </div>
+
+        <!-- Цвет акцента -->
+        <div class="setting-card">
+          <h3>🎨 Цвет интерфейса</h3>
+          <div class="control-group color-picker-group">
+            <input type="color" id="accent-color-picker" value="#ff4d94">
+            <span class="color-preview" id="color-preview"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Эффекты -->
+  <div id="fireflies-container" class="ag-fireflies_box"></div>
+  <div id="stars-container" class="stars"></div>
+  <div id="snowflakes-container" class="snowflakes"></div>
+
+  <!-- Новогодний шарик -->
+  <div id="winter-scene-container">
+    <div class="container">
+      <div class="snow"></div>
+      <div class="tree1"></div>
+      <div class="tree2"></div>
+      <div class="house">
+        <div class="roof1">
+          <div class="b1"></div>
+          <div class="b2"></div>
+        </div>
+        <div class="wall1">
+          <div class="w3">
+            <div class="window1">
+              <div class="glass1"></div>
+            </div>
+          </div>
+        </div>
+        <div class="wall2">
+          <div class="light">
+            <div class="w1">
+              <div class="window">
+                <div class="glass"></div>
+              </div>
+            </div>
+            <div class="w2">
+              <div class="window">
+                <div class="glass"></div>
+              </div>
+            </div>
+          </div>
+          <div class="door">
+            <div class="handle"></div>
+          </div>
+          <div class="snw1"></div>
+          <div class="snw2"></div>
+        </div>
+        <div class="wall3">
+          <div class="b3"></div>
+          <div class="b4"></div>
+          <div class="chimney">
+            <div class="top">
+              <div class="smoke">
+                <div class="s1"></div>
+                <div class="s2"></div>
+                <div class="s3"></div>
+              </div>
+              <div class="shne1"></div>
+              <div class="shne2"></div>
+            </div>
+          </div>
+          <div class="sn">
+            <div class="dr1"></div>
+            <div class="dr2"></div>
+            <div class="dr3"></div>
+          </div>
+          <div class="sn1">
+            <div class="dr4"></div>
+          </div>
+          <div class="sh1"></div>
+          <div class="sh2"></div>
+          <div class="sh3"></div>
+          <div class="sh4"></div>
+          <div class="sh5"></div>
+        </div>
+      </div>
+      <div class="snowfall"></div>
+      <div class="cover"></div>
+      <div class="bottom">
+        <div class="bt1"></div>
+        <div class="bt2"></div>
+      </div>
+      <div class="fence">
+        <div class="fn1">
+          <div class="screw"></div>
+        </div>
+        <div class="fn2">
+          <div class="screw"></div>
+        </div>
+        <div class="fn3">
+          <div class="screw"></div>
+        </div>
+        <div class="stck"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модалка кроппера -->
+  <div id="avatar-modal" class="modal">
+    <div class="modal-content">
+      <div id="image-preview"></div>
+      <button id="save-avatar">Сохранить</button>
+      <button id="cancel-avatar">Отмена</button>
+    </div>
+  </div>
+
+  <input type="file" id="file1" accept="image/*" style="display:none">
+  <input type="file" id="file2" accept="image/*" style="display:none">
+
+  <!-- Cropper.js (обратите внимание: исправлены пробелы в URL) -->
+  <script src="https://unpkg.com/cropperjs@1.6.2/dist/cropper.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/cropperjs@1.6.2/dist/cropper.min.css">
+  <script src="main.js"></script>
+</body>
+</html>
